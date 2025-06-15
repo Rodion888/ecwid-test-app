@@ -1,110 +1,84 @@
-# Ecwid Shop - Тестовое задание
+# Ecwid Test App
 
-Интернет-магазин на Vue.js 3 + TypeScript с использованием Ecwid REST API.
+> **Application for Ecwid Developer Position**  
+> Vue.js & TypeScript Test Task
 
-## Функциональность
-
-### ✅ Реализованные страницы:
-- **Главная страница** (`/`) - каталог товаров и категорий
-- **Страница категории** (`/category/:id`) - товары и подкатегории конкретной категории  
-- **Страница товара** (`/product/:id`) - детальная информация о товаре
-- **Корзина** (`/cart`) - управление товарами в корзине
-
-### ✅ Основные возможности:
-- Просмотр категорий и товаров из Ecwid API
-- Навигация по категориям и подкатегориям
-- Детальный просмотр товаров с изображениями и описанием
-- Добавление товаров в корзину
-- Управление количеством товаров в корзине
-- Удаление товаров из корзины
-- Оформление заказа с поздравлением
-- Сохранение корзины в localStorage
-- Адаптивный дизайн для мобильных устройств
-
-## Технологии
-
-- **Vue.js 3** - фреймворк
-- **TypeScript** - типизация
-- **Vue Router** - маршрутизация
-- **Pinia** - управление состоянием
-- **Vite** - сборщик
-- **Ecwid REST API** - источник данных
-
-## API Configuration
-
-Приложение использует демо-магазин Ecwid:
-- **Store ID**: 108362264
-- **Public Token**: public_RiNvjTVVzKLhFNWyzR5fNY68u1GMHLEs
-
-## Установка и запуск
-
-```bash
-# Установка зависимостей
-npm install
-
-# Запуск в режиме разработки
-npm run dev
-
-# Сборка для продакшена
-npm run build
-
-# Предварительный просмотр сборки
-npm run preview
-```
-
-## Структура проекта
-
-```
-src/
-├── components/          # Переиспользуемые компоненты
-├── views/              # Страницы приложения
-│   ├── CatalogView.vue    # Главная страница каталога
-│   ├── CategoryView.vue   # Страница категории
-│   ├── ProductView.vue    # Страница товара
-│   └── CartView.vue       # Корзина
-├── stores/             # Pinia stores
-│   └── cart.ts           # Управление корзиной
-├── services/           # API сервисы
-│   └── ecwidApi.ts       # Работа с Ecwid API
-├── types/              # TypeScript типы
-│   └── ecwid.ts          # Типы для Ecwid API
-├── router/             # Конфигурация маршрутов
-└── App.vue             # Главный компонент
-```
-
-## Особенности реализации
-
-### Работа с API
-- Все запросы к Ecwid API выполняются через сервис `ecwidApi`
-- Реализована обработка ошибок и состояний загрузки
-- Параллельная загрузка данных где это возможно
-
-### Управление состоянием
-- Корзина реализована через Pinia store
-- Автоматическое сохранение в localStorage
-- Реактивные вычисляемые свойства для количества и суммы
-
-### UX/UI
-- Современный и чистый дизайн
-- Адаптивная верстка
-- Индикаторы загрузки и ошибок
-- Подтверждения действий пользователя
-
-## Возможные улучшения
-
-- Поиск по товарам
-- Фильтрация и сортировка
-- Пагинация для больших каталогов
-- Избранные товары
-- Сравнение товаров
-- Более детальная обработка опций товаров
-- Unit тесты
-- E2E тесты
-
-## Демо
-
-Приложение доступно по адресу: http://localhost:5173
+[![Live Demo](https://img.shields.io/badge/Live_Demo-ecwid--test--app.netlify.app-blue?style=for-the-badge)](https://ecwid-test-app.netlify.app/)
+<br/>
+[![Vue.js](https://img.shields.io/badge/Vue.js-3.5.13-green?style=flat-square&logo=vue.js)](https://vuejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.0-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.2.4-purple?style=flat-square&logo=vite)](https://vitejs.dev/)
 
 ---
 
-*Тестовое задание для позиции TypeScript/Vue.js разработчика в Ecwid*
+## Overview
+
+Application built with Vue.js and TypeScript, featuring product catalog, shopping cart, and integration with Ecwid REST API.
+
+---
+
+## Tech Stack
+
+### Frontend
+- **Vue.js** 3.5.13
+- **TypeScript** 5.8.0
+- **Vite** 6.2.4
+- **Vue Router** 4.5.0
+- **Pinia** 3.0.1
+
+### API Integration
+- **Ecwid REST API**
+
+---
+
+## Development
+
+```bash
+# Clone repository
+git clone https://github.com/Rodion888/ecwid-test-app.git
+cd ecwid-test-app
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Type checking
+npm run type-check
+```
+
+**Development server:** http://localhost:5173
+
+---
+
+## Project Structure
+
+```
+src/
+├── components/         # Reusable UI components
+├── views/              # Page components
+├── stores/             # Pinia stores
+├── services/           # API services
+├── types/              # TypeScript interfaces
+├── router/             # Vue Router configuration
+└── styles/             # Global styles
+```
+
+---
+
+## Links
+
+- **Live Demo:** [ecwid-test-app.netlify.app](https://ecwid-test-app.netlify.app/)
+- **Repository:** [github.com/Rodion888/ecwid-test-app](https://github.com/Rodion888/ecwid-test-app)
+
+---
+
+<div align="center">
+
+**Built with ❤️ for Ecwid**
+
+</div>

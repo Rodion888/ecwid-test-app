@@ -148,7 +148,7 @@ onMounted(() => {
   top: 3rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 72.6%;
+  width: 86%;
   padding: 2rem;
   height: calc(100% - 6rem);
   box-sizing: border-box;
