@@ -3,7 +3,7 @@
 > **Application for Ecwid Developer Position**  
 > Vue.js & TypeScript Test Task with SSR
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-ecwid--test--app.netlify.app-blue?style=for-the-badge)](https://ecwid-test-app.netlify.app/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-ecwid--test--app.vercel.app-blue?style=for-the-badge)](https://ecwid-test-app.vercel.app/)
 <br/>
 [![Vue.js](https://img.shields.io/badge/Vue.js-3.5.13-green?style=flat-square&logo=vue.js)](https://vuejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8.0-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
@@ -91,7 +91,7 @@ src/
 
 ## Links
 
-- **Live Demo:** [ecwid-test-app.netlify.app](https://ecwid-test-app.netlify.app/)
+- **Live Demo:** [ecwid-test-app.vercel.app](https://ecwid-test-app.vercel.app/)
 - **Repository:** [github.com/Rodion888/ecwid-test-app](https://github.com/Rodion888/ecwid-test-app)
 
 ---

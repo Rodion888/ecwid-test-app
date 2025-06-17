@@ -28,6 +28,11 @@ export default [
         parser: tseslint.parser,
         sourceType: 'module',
       },
+      globals: {
+        MouseEvent: 'readonly',
+        HTMLButtonElement: 'readonly',
+        HTMLElement: 'readonly',
+      },
     },
     rules: {
       'vue/multi-word-component-names': 'off',

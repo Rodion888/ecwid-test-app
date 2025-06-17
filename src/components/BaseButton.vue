@@ -1,11 +1,6 @@
 <template>
-  <button
-    class="glow-button"
-    :class="[type, { disabled }]"
-    :disabled="disabled"
-    @click="handleClick"
-    @mousemove="handleMouseMove"
-  >
+  <button class="glow-button" :class="[type, { disabled }]" :disabled="disabled" @click="handleClick"
+    @mousemove="handleMouseMove">
     <span class="glow"></span>
 
     <template v-if="type === 'btn'">
@@ -40,10 +35,8 @@ const emit = defineEmits<Emits>();
 
 const handleClick = () => emit('buttonClick');
 
-// eslint-disable-next-line no-undef
 const handleMouseMove = (event: MouseEvent) => {
-  // eslint-disable-next-line no-undef
-  const button = event.target as HTMLElement;
+  const button = event.currentTarget as HTMLButtonElement;
   const rect = button.getBoundingClientRect();
   const x = ((event.clientX - rect.left) / rect.width) * 100;
   const y = ((event.clientY - rect.top) / rect.height) * 100;
@@ -85,14 +78,12 @@ const handleMouseMove = (event: MouseEvent) => {
   left: var(--x, 90%);
   width: 180px;
   height: 160px;
-  background: radial-gradient(
-    43.3% 44.23% at 50% 49.51%,
-    #f0f0e5 29%,
-    #f4efc1 40%,
-    #f3cfbb 50%,
-    rgba(255, 170, 129, 0.3) 70%,
-    rgba(214, 211, 210, 0) 100%
-  );
+  background: radial-gradient(43.3% 44.23% at 50% 49.51%,
+      #f0f0e5 29%,
+      #f4efc1 40%,
+      #f3cfbb 50%,
+      rgba(255, 170, 129, 0.3) 70%,
+      rgba(214, 211, 210, 0) 100%);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   filter: blur(5px);
