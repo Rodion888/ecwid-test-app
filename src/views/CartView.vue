@@ -2,17 +2,19 @@
   <div class="cart-page">
     <div class="cart-container">
       <div v-if="cartStore.items.length > 0" class="cart-items">
-        <div 
-          v-for="item in groupedCartItems" 
+        <div
+          v-for="item in groupedCartItems"
           :key="`${item.product.id}-${item.selectedOptions ? JSON.stringify(item.selectedOptions) : ''}`"
           class="cart-item"
         >
-          <img 
-            class="cart-image" 
-            :src="item.product.imageUrl || item.product.galleryImages?.[0]?.url || '/placeholder.jpg'" 
+          <img
+            class="cart-image"
+            :src="
+              item.product.imageUrl || item.product.galleryImages?.[0]?.url || '/placeholder.jpg'
+            "
             :alt="item.product.name"
           />
-          
+
           <div class="cart-details">
             <span class="item-name text-bold text-default">
               {{ item.product.name }}
@@ -24,14 +26,14 @@
               Quantity: <span class="item-size text-accent">{{ item.quantity }}</span>
             </span>
             <span class="item-price text-default">
-              Price: <span class="item-size text-price">${{ (item.product.price * item.quantity).toFixed(2) }}</span>
+              Price:
+              <span class="item-size text-price"
+                >${{ (item.product.price * item.quantity).toFixed(2) }}</span
+              >
             </span>
           </div>
-          
-          <BaseButton 
-            type="cross" 
-            @buttonClick="removeFromCart(item)"
-          />
+
+          <BaseButton type="cross" @buttonClick="removeFromCart(item)" />
         </div>
       </div>
 
@@ -40,15 +42,17 @@
       </div>
     </div>
 
-    <div v-if="cartStore.items.length > 0" class="action-buttons">
-      <BaseButton 
-        type="btn" 
-        text="Clear cart" 
+    <div class="action-buttons">
+      <BaseButton
+        type="btn"
+        text="Clear cart"
+        :disabled="cartStore.items.length === 0"
         @buttonClick="clearCart"
       />
-      <BaseButton 
-        type="btn" 
-        text="Place order" 
+      <BaseButton
+        type="btn"
+        text="Place order"
+        :disabled="cartStore.items.length === 0"
         @buttonClick="goToCheckout"
       />
     </div>
@@ -57,12 +61,10 @@
       <div class="modal-content" @click.stop>
         <h2>Order placed!</h2>
         <p>Your order has been placed.</p>
-        <p>Total: <strong>${{ cartStore.totalPrice.toFixed(2) }}</strong></p>
-        <BaseButton 
-          type="btn"
-          text="Close"
-          @buttonClick="closeOrderModal"
-        />
+        <p>
+          Total: <strong>${{ cartStore.totalPrice.toFixed(2) }}</strong>
+        </p>
+        <BaseButton type="btn" text="Close" @buttonClick="closeOrderModal" />
       </div>
     </div>
   </div>
@@ -83,7 +85,7 @@ const showOrderModal = ref(false);
 
 const groupedCartItems = computed(() => {
   const grouped: Record<string, CartItem> = {};
-  
+
   cartStore.items.forEach(item => {
     const key = `${item.product.id}-${item.selectedOptions ? JSON.stringify(item.selectedOptions) : ''}`;
 
@@ -93,22 +95,28 @@ const groupedCartItems = computed(() => {
       grouped[key] = { ...item };
     }
   });
-  
+
   return Object.values(grouped);
 });
 
 const formatSelectedOptions = (options: Record<string, string> | undefined) => {
   if (!options) return '';
-  return Object.entries(options).map(([key, value]) => `${key}: ${value}`).join(', ');
+  return Object.entries(options)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join(', ');
 };
 
 const removeFromCart = (item: CartItem) => {
   cartStore.decreaseQuantity(item.product.id);
 };
 
-const clearCart = () => cartStore.clearCart();
+const clearCart = () => {
+  if (cartStore.items.length === 0) return;
+  cartStore.clearCart();
+};
 
 const goToCheckout = () => {
+  if (cartStore.items.length === 0) return;
   showOrderModal.value = true;
 };
 
@@ -137,6 +145,7 @@ const closeOrderModal = () => {
 .cart-container {
   width: 88%;
   height: 68%;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -235,10 +244,11 @@ const closeOrderModal = () => {
 .empty-cart-message {
   display: flex;
   width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
   font-size: 1.2rem;
+  flex: 1;
 }
 
 .modal-overlay {
@@ -314,7 +324,7 @@ const closeOrderModal = () => {
     font-size: 0.85rem;
   }
 
-  .item-quantity, 
+  .item-quantity,
   .item-price {
     font-size: 0.8rem;
   }

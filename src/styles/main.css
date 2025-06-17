@@ -1,11 +1,12 @@
 :root {
-  --font-main: "Titillium Web", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-  --font-code: "BerkeleyMono", monospace;
-
+  --font-main:
+    'Titillium Web', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont,
+    Roboto, 'Helvetica Neue', sans-serif;
+  --font-code: 'BerkeleyMono', monospace;
   --color-default: #129b9b;
   --color-accent: #7e7e09;
   --color-secondary: #b5c2c2;
-  --color-dark: #171c1c;  
+  --color-dark: #171c1c;
 }
 
 *,
@@ -16,7 +17,9 @@
   padding: 0;
 }
 
-h2, h1, h3 {
+h2,
+h1,
+h3 {
   color: var(--color-secondary) !important;
 }
 
@@ -28,7 +31,9 @@ h2, h1, h3 {
   display: none;
 }
 
-html, body, #app {
+html,
+body,
+#app {
   height: 100%;
   overflow: hidden;
 }
@@ -53,7 +58,9 @@ body::before {
   width: 100%;
   height: 100%;
   background-color: var(--color-dark);
-  background-image: repeating-radial-gradient(circle at 0 0, #b4242400 0, var(--color-dark) 30px), repeating-linear-gradient(rgb(9, 10, 12), rgb(12 11 9));
+  background-image:
+    repeating-radial-gradient(circle at 0 0, #b4242400 0, var(--color-dark) 30px),
+    repeating-linear-gradient(rgb(9, 10, 12), rgb(12 11 9));
   background-attachment: fixed;
   z-index: -10;
 }

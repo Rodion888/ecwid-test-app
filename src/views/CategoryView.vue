@@ -1,6 +1,5 @@
 <template>
   <div class="category-page">
-
     <div v-if="isLoading" class="loader-container">
       <BaseSpinner />
     </div>
@@ -9,52 +8,49 @@
       <header class="category-header">
         <div class="category-info">
           <h1>{{ category.name }}</h1>
-          <p v-if="category.description" class="category-description" v-html="category.description"></p>
+          <p
+            v-if="category.description"
+            class="category-description"
+            v-html="category.description"
+          ></p>
           <div class="category-stats">
             <span class="product-count">{{ category.productCount || 0 }} products</span>
           </div>
         </div>
         <img
-          v-if="category.imageUrl" 
-          :src="category.imageUrl" 
+          v-if="category.imageUrl"
+          :src="category.imageUrl"
           :alt="category.name"
           class="category-image"
         />
       </header>
-      
+
       <section v-if="hasSubcategories" class="subcategories-section">
         <h2 class="section-title">Subcategories</h2>
         <div class="categories-grid">
-          <div 
-            v-for="subcategory in subcategories" 
+          <div
+            v-for="subcategory in subcategories"
             :key="subcategory.id"
             class="category-card"
-            @click="goToCategory(subcategory.id)">
+            @click="goToCategory(subcategory.id)"
+          >
             <h3>{{ subcategory.name }}</h3>
             <p>{{ subcategory.productCount || 0 }} products</p>
           </div>
         </div>
       </section>
-      
+
       <section v-if="hasProducts" class="products-section">
         <h2 class="section-title">Products</h2>
         <div class="products-grid">
-          <ProductCard
-            v-for="product in products"
-            :key="product.id"
-            :product="product"
-          />
+          <ProductCard v-for="product in products" :key="product.id" :product="product" />
         </div>
       </section>
-      
+
       <div v-if="isEmpty" class="empty-state">
         <h3>No products in this category yet</h3>
         <p>Try browsing other categories</p>
-        <BaseButton 
-          type="btn" 
-          text="Back to Catalog" 
-          @buttonClick="goToCatalog"
-        />
+        <BaseButton type="btn" text="Back to Catalog" @buttonClick="goToCatalog" />
       </div>
     </div>
   </div>
@@ -62,17 +58,14 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { ecwidApi } from '@/services/ecwidApi';
 import { BaseButton, BaseSpinner, ProductCard } from '@/components';
 
 import type { EcwidCategory, EcwidProduct } from '@/types/ecwid';
 
-const props = defineProps<{
-  id: string;
-}>();
-
 const router = useRouter();
+const route = useRoute();
 
 const isLoading = ref(true);
 const category = ref<EcwidCategory | null>(null);
@@ -86,43 +79,48 @@ const isEmpty = computed(() => !hasSubcategories.value && !hasProducts.value);
 const loadCategoryData = async (categoryId: number) => {
   try {
     isLoading.value = true;
-    
+
     const allCategoriesResponse = await ecwidApi.getCategories();
-    category.value = allCategoriesResponse.items.find((cat) => cat.id === categoryId) || null;
-    
+    category.value = allCategoriesResponse.items.find(cat => cat.id === categoryId) || null;
+
     if (!category.value) {
       return;
     }
-    
+
     const [subcategoriesResponse, productsResponse] = await Promise.all([
       ecwidApi.getCategories(categoryId),
-      ecwidApi.getProducts(categoryId, 50)
+      ecwidApi.getProducts(categoryId, 50),
     ]);
-    
+
     subcategories.value = subcategoriesResponse.items || [];
     products.value = productsResponse.items || [];
-  } catch (err) {
-    console.error('Failed to load category data:', err);
   } finally {
     isLoading.value = false;
   }
 };
 
-const goToCategory = (categoryId: number) => router.push({
-  name: 'category', params: { id: categoryId.toString() }
-});
+const goToCategory = (categoryId: number) =>
+  router.push({
+    name: 'category',
+    params: { id: categoryId.toString() },
+  });
 
 const goToCatalog = () => router.push('/');
 
-watch(() => props.id, (newId) => {
-  if (newId) {
-    loadCategoryData(parseInt(newId));
-  }
-}, { immediate: true });
+watch(
+  () => route.params.id,
+  newId => {
+    if (newId && typeof newId === 'string') {
+      loadCategoryData(parseInt(newId));
+    }
+  },
+  { immediate: true }
+);
 
 onMounted(() => {
-  if (props.id) {
-    loadCategoryData(parseInt(props.id));
+  const id = route.params.id;
+  if (id && typeof id === 'string') {
+    loadCategoryData(parseInt(id));
   }
 });
 </script>

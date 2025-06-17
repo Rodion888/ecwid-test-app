@@ -1,10 +1,9 @@
 <template>
   <div class="catalog-page">
-
     <div v-if="isLoading" class="loader-container">
       <BaseSpinner />
     </div>
-    
+
     <div v-else class="catalog-container">
       <section v-if="hasCategories" class="categories-section">
         <h2 class="section-title">Categories</h2>
@@ -13,21 +12,18 @@
             v-for="category in mainCategories"
             :key="category.id"
             class="category-card"
-            @click="goToCategory(category.id)">
+            @click="goToCategory(category.id)"
+          >
             <h3>{{ category.name }}</h3>
             <p>{{ category.productCount || 0 }} products</p>
           </div>
         </div>
       </section>
-      
+
       <section v-if="hasProducts" class="products-section">
         <h2 class="section-title">Products</h2>
         <div class="products-grid">
-          <ProductCard
-            v-for="product in products"
-            :key="product.id"
-            :product="product"
-          />
+          <ProductCard v-for="product in products" :key="product.id" :product="product" />
         </div>
       </section>
     </div>
@@ -48,9 +44,7 @@ const isLoading = ref(true);
 const products = ref<EcwidProduct[]>([]);
 const categories = ref<EcwidCategory[]>([]);
 
-const mainCategories = computed(() => 
-  categories.value.filter(cat => !cat.parentId)
-);
+const mainCategories = computed(() => categories.value.filter(cat => !cat.parentId));
 
 const hasCategories = computed(() => mainCategories.value.length > 0);
 const hasProducts = computed(() => products.value.length > 0);
@@ -58,26 +52,29 @@ const hasProducts = computed(() => products.value.length > 0);
 const loadCatalogData = async () => {
   try {
     isLoading.value = true;
-    
+
     const [categoriesResponse, productsResponse] = await Promise.all([
       ecwidApi.getCategories(),
-      ecwidApi.getProducts()
+      ecwidApi.getProducts(),
     ]);
-    
+
     categories.value = categoriesResponse.items || [];
     products.value = productsResponse.items || [];
-    
-    setTimeout(() => {
-      isLoading.value = false;
-    }, 1000);
-    
-  } catch (err) {
-    console.error('Failed to load catalog data:', err);
+
+    globalThis.requestAnimationFrame(() => {
+      const timer = globalThis.setTimeout(() => {
+        isLoading.value = false;
+      }, 1000);
+      void timer;
+    });
+  } catch {
     isLoading.value = false;
   }
 };
 
-const goToCategory = (categoryId: number) => router.push(`/category/${categoryId}`);
+const goToCategory = (categoryId: number) => {
+  router.push(`/category/${categoryId}`);
+};
 
 onMounted(() => {
   loadCatalogData();

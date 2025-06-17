@@ -1,9 +1,11 @@
 <template>
   <button
     class="glow-button"
-    :class="type"
+    :class="[type, { disabled }]"
+    :disabled="disabled"
     @click="handleClick"
-    @mousemove="handleMouseMove">
+    @mousemove="handleMouseMove"
+  >
     <span class="glow"></span>
 
     <template v-if="type === 'btn'">
@@ -20,24 +22,27 @@
 
 <script setup lang="ts">
 interface Props {
-  type?: 'btn' | 'cross' | 'arrow-left' | 'arrow-right'
-  text?: string
+  type?: 'btn' | 'cross' | 'arrow-left' | 'arrow-right';
+  text?: string;
+  disabled?: boolean;
 }
 
 interface Emits {
-  buttonClick: []
+  buttonClick: [];
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   type: 'btn',
-  text: ''
+  text: '',
 });
 
 const emit = defineEmits<Emits>();
 
 const handleClick = () => emit('buttonClick');
 
+// eslint-disable-next-line no-undef
 const handleMouseMove = (event: MouseEvent) => {
+  // eslint-disable-next-line no-undef
   const button = event.target as HTMLElement;
   const rect = button.getBoundingClientRect();
   const x = ((event.clientX - rect.left) / rect.width) * 100;
@@ -91,7 +96,9 @@ const handleMouseMove = (event: MouseEvent) => {
   border-radius: 50%;
   transform: translate(-50%, -50%);
   filter: blur(5px);
-  transition: opacity 0.3s ease-in-out, transform 0.1s ease-out;
+  transition:
+    opacity 0.3s ease-in-out,
+    transform 0.1s ease-out;
   opacity: 1;
   z-index: 1;
   pointer-events: none;
@@ -122,4 +129,18 @@ const handleMouseMove = (event: MouseEvent) => {
   z-index: 2;
   pointer-events: none;
 }
-</style> 
+
+.glow-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: rgb(9, 10, 12);
+}
+
+.glow-button.disabled .glow {
+  opacity: 0;
+}
+
+.glow-button.disabled:hover .glow {
+  opacity: 0;
+}
+</style>

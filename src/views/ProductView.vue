@@ -4,28 +4,30 @@
   </div>
 
   <div v-if="product && !isLoading" class="product-container">
-    <div class="image-section"
+    <div
+      class="image-section"
       :class="{
         'animate-in': showLeftContent,
-        'hidden': !showLeftContent
-      }">
+        hidden: !showLeftContent,
+      }"
+    >
       <div class="image-carousel">
-        <BaseButton 
+        <BaseButton
           v-if="hasMultipleImages"
           type="arrow-left"
           class="nav-button nav-button-left"
           @buttonClick="previousImage"
         />
-        <BaseButton 
+        <BaseButton
           v-if="hasMultipleImages"
           type="arrow-right"
           class="nav-button nav-button-right"
           @buttonClick="nextImage"
         />
-        <img 
-          :src="currentImage" 
-          :alt="product.name" 
-          class="product-image" 
+        <img
+          :src="currentImage"
+          :alt="product.name"
+          class="product-image"
           @click="openFullscreen"
         />
         <div v-if="hasMultipleImages" class="image-indicators">
@@ -40,12 +42,13 @@
       </div>
     </div>
 
-    <div 
+    <div
       class="product-details"
       :class="{
         'animate-in': showRightContent,
-        'hidden': !showRightContent
-      }">
+        hidden: !showRightContent,
+      }"
+    >
       <h1 class="product-name">{{ product.name }}</h1>
       <div class="price-section">
         <span class="current-price">${{ product.price.toFixed(2) }}</span>
@@ -58,12 +61,7 @@
         <div v-html="product.description"></div>
       </div>
       <div class="buy-button-container">
-        <BaseButton
-          type="btn"
-          class="buy-button"
-          text="Buy"
-          @buttonClick="addToCart"
-        />
+        <BaseButton type="btn" class="buy-button" text="Buy" @buttonClick="addToCart" />
       </div>
     </div>
   </div>
@@ -75,16 +73,14 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue';
+import { useRoute } from 'vue-router';
 import { ecwidApi } from '@/services/ecwidApi';
 import { useCartStore } from '@/stores/cart';
 import { BaseButton, BaseSpinner } from '@/components';
 
 import type { EcwidProduct } from '@/types/ecwid';
 
-const props = defineProps<{
-  id: string;
-}>();
-
+const route = useRoute();
 const cartStore = useCartStore();
 
 const isLoading = ref(true);
@@ -98,19 +94,19 @@ const productImages = computed(() => {
   if (!product.value) return [];
 
   const images: string[] = [];
-  
+
   if (product.value.imageUrl) {
     images.push(product.value.imageUrl);
   }
-  
+
   if (product.value.galleryImages?.length) {
-    product.value.galleryImages.forEach((img) => {
+    product.value.galleryImages.forEach(img => {
       if (img.url && !images.includes(img.url)) {
         images.push(img.url);
       }
     });
   }
-  
+
   return images;
 });
 
@@ -131,41 +127,48 @@ const loadProduct = async (productId: number) => {
     isLoading.value = true;
     showLeftContent.value = false;
     showRightContent.value = false;
-    
+
     product.value = await ecwidApi.getProduct(productId);
     currentImageIndex.value = 0;
-    
+
     startContentAnimation();
-  } catch (error) {
-    console.error('Failed to load product:', error);
+  } catch {
     isLoading.value = false;
   }
 };
 
 const startContentAnimation = () => {
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 1000);
-  
-  setTimeout(() => {
-    showLeftContent.value = true;
-  }, 1100);
-  
-  setTimeout(() => {
-    showRightContent.value = true;
-  }, 1400);
+  globalThis.requestAnimationFrame(() => {
+    const loadingTimer = globalThis.setTimeout(() => {
+      isLoading.value = false;
+    }, 1000);
+
+    const leftContentTimer = globalThis.setTimeout(() => {
+      showLeftContent.value = true;
+    }, 1100);
+
+    const rightContentTimer = globalThis.setTimeout(() => {
+      showRightContent.value = true;
+    }, 1400);
+
+    void loadingTimer;
+    void leftContentTimer;
+    void rightContentTimer;
+  });
 };
 
 const previousImage = () => {
   if (!hasMultipleImages.value) return;
-  
-  currentImageIndex.value = currentImageIndex.value === 0 ? productImages.value.length - 1 : currentImageIndex.value - 1;
+
+  currentImageIndex.value =
+    currentImageIndex.value === 0 ? productImages.value.length - 1 : currentImageIndex.value - 1;
 };
 
 const nextImage = () => {
   if (!hasMultipleImages.value) return;
-  
-  currentImageIndex.value = currentImageIndex.value === productImages.value.length - 1 ? 0 : currentImageIndex.value + 1;
+
+  currentImageIndex.value =
+    currentImageIndex.value === productImages.value.length - 1 ? 0 : currentImageIndex.value + 1;
 };
 
 const setCurrentImage = (index: number) => {
@@ -182,19 +185,24 @@ const closeFullscreen = () => {
 
 const addToCart = () => {
   if (!product.value) return;
-  
+
   cartStore.addToCart(product.value);
 };
 
-watch(() => props.id, (newId) => {
-  if (newId) {
-    loadProduct(parseInt(newId));
-  }
-}, { immediate: true });
+watch(
+  () => route.params.id,
+  newId => {
+    if (newId && typeof newId === 'string') {
+      loadProduct(parseInt(newId));
+    }
+  },
+  { immediate: true }
+);
 
 onMounted(() => {
-  if (props.id) {
-    loadProduct(parseInt(props.id));
+  const id = route.params.id;
+  if (id && typeof id === 'string') {
+    loadProduct(parseInt(id));
   }
 });
 </script>
@@ -408,6 +416,7 @@ onMounted(() => {
     opacity: 0;
     transform: translateY(20px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -419,6 +428,7 @@ onMounted(() => {
     opacity: 0;
     transform: scale(0.9);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);

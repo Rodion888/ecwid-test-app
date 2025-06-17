@@ -1,3 +1,25 @@
+<template>
+  <div class="product-card">
+    <div class="product-image-container" @click="goToProduct">
+      <img
+        v-if="product.imageUrl"
+        :src="product.imageUrl"
+        :alt="product.name"
+        class="product-image"
+      />
+      <div v-else class="product-image-placeholder">No image</div>
+    </div>
+
+    <div class="product-info">
+      <div class="product-text">
+        <h3 class="product-name" @click="goToProduct">{{ product.name }}</h3>
+        <p class="product-price">${{ product.price.toFixed(2) }}</p>
+      </div>
+      <BaseButton @buttonClick="addToCart" text="Buy" class="buy-button" />
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { useCartStore } from '@/stores/cart';
@@ -21,34 +43,6 @@ const goToProduct = () => {
 
 const addToCart = () => cartStore.addToCart(props.product);
 </script>
-
-<template>
-  <div class="product-card">
-    <div class="product-image-container" @click="goToProduct">
-      <img 
-        v-if="product.imageUrl" 
-        :src="product.imageUrl" 
-        :alt="product.name"
-        class="product-image"
-      />
-      <div v-else class="product-image-placeholder">
-        No image
-      </div>
-    </div>
-    
-    <div class="product-info">
-      <div class="product-text">
-        <h3 class="product-name" @click="goToProduct">{{ product.name }}</h3>
-        <p class="product-price">${{ product.price.toFixed(2) }}</p>
-      </div>
-      <BaseButton 
-        @buttonClick="addToCart"
-        text="Buy"
-        class="buy-button"
-      />
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .product-card {
@@ -119,4 +113,4 @@ const addToCart = () => cartStore.addToCart(props.product);
   display: flex;
   align-self: center;
 }
-</style> 
+</style>

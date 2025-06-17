@@ -1,11 +1,3 @@
-<script setup lang="ts">
-import { useCartStore } from '@/stores/cart';
-
-import AppLogo from './AppLogo.vue';
-
-const cartStore = useCartStore();
-</script>
-
 <template>
   <header class="header">
     <div class="logo-container">
@@ -13,7 +5,7 @@ const cartStore = useCartStore();
         <AppLogo />
       </router-link>
     </div>
-    
+
     <div class="cart-button-block">
       <router-link to="/cart" class="cart-button text-default">
         cart
@@ -24,6 +16,14 @@ const cartStore = useCartStore();
     </div>
   </header>
 </template>
+
+<script setup lang="ts">
+import { useCartStore } from '@/stores/cart';
+
+import AppLogo from './AppLogo.vue';
+
+const cartStore = useCartStore();
+</script>
 
 <style scoped>
 .header {
@@ -73,7 +73,9 @@ const cartStore = useCartStore();
   background-color: transparent;
   border: 1.4px solid rgba(255, 255, 255, 0.2);
   border-radius: 9999px;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
   text-decoration: none;
   box-sizing: border-box;
   cursor: pointer;
@@ -85,5 +87,4 @@ const cartStore = useCartStore();
   background-color: rgba(255, 255, 255, 0.04);
   border-color: rgba(255, 255, 255, 0.5);
 }
-
-</style> 
+</style>

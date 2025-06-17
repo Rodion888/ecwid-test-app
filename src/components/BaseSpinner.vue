@@ -36,13 +36,13 @@
         <div class="hex-brick h2"></div>
         <div class="hex-brick h3"></div>
       </div>
-      
+
       <div class="gel c7 r2">
         <div class="hex-brick h1"></div>
         <div class="hex-brick h2"></div>
         <div class="hex-brick h3"></div>
       </div>
-      
+
       <div class="gel c8 r2">
         <div class="hex-brick h1"></div>
         <div class="hex-brick h2"></div>
@@ -195,13 +195,13 @@
 
 <script setup lang="ts">
 interface Props {
-  size?: 'sm' | 'md' | 'lg'
-  text?: string
+  size?: 'sm' | 'md' | 'lg';
+  text?: string;
 }
 
 withDefaults(defineProps<Props>(), {
-  size: 'md'
-})
+  size: 'md',
+});
 </script>
 
 <style scoped>
@@ -263,8 +263,8 @@ withDefaults(defineProps<Props>(), {
 .gel {
   height: 30px;
   width: 30px;
-  transition: all .3s;
-  -webkit-transition: all .3s;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -281,107 +281,215 @@ withDefaults(defineProps<Props>(), {
   -webkit-animation-iteration-count: infinite;
 }
 
-.c1 { margin-left: -47px; margin-top: -15px; }
-.c2 { margin-left: -31px; margin-top: -43px; }
-.c3 { margin-left: 1px; margin-top: -43px; }
-.c4 { margin-left: 17px; margin-top: -15px; }
-.c5 { margin-left: -31px; margin-top: 13px; }
-.c6 { margin-left: 1px; margin-top: 13px; }
-.c7 { margin-left: -63px; margin-top: -43px; }
-.c8 { margin-left: 33px; margin-top: -43px; }
-.c9 { margin-left: -15px; margin-top: 41px; }
-.c10 { margin-left: -63px; margin-top: 13px; }
-.c11 { margin-left: 33px; margin-top: 13px; }
-.c12 { margin-left: -15px; margin-top: -71px; }
-.c13 { margin-left: -47px; margin-top: -71px; }
-.c14 { margin-left: 17px; margin-top: -71px; }
-.c15 { margin-left: -47px; margin-top: 41px; }
-.c16 { margin-left: 17px; margin-top: 41px; }
-.c17 { margin-left: -79px; margin-top: -15px; }
-.c18 { margin-left: 49px; margin-top: -15px; }
-.c19 { margin-left: -63px; margin-top: -99px; }
-.c20 { margin-left: 33px; margin-top: -99px; }
-.c21 { margin-left: 1px; margin-top: -99px; }
-.c22 { margin-left: -31px; margin-top: -99px; }
-.c23 { margin-left: -63px; margin-top: 69px; }
-.c24 { margin-left: 33px; margin-top: 69px; }
-.c25 { margin-left: 1px; margin-top: 69px; }
-.c26 { margin-left: -31px; margin-top: 69px; }
-.c28 { margin-left: -95px; margin-top: -43px; }
-.c29 { margin-left: -95px; margin-top: 13px; }
-.c30 { margin-left: 49px; margin-top: 41px; }
-.c31 { margin-left: -79px; margin-top: -71px; }
-.c32 { margin-left: -111px; margin-top: -15px; }
-.c33 { margin-left: 65px; margin-top: -43px; }
-.c34 { margin-left: 65px; margin-top: 13px; }
-.c35 { margin-left: -79px; margin-top: 41px; }
-.c36 { margin-left: 49px; margin-top: -71px; }
-.c37 { margin-left: 81px; margin-top: -15px; }
+.c1 {
+  margin-left: -47px;
+  margin-top: -15px;
+}
+.c2 {
+  margin-left: -31px;
+  margin-top: -43px;
+}
+.c3 {
+  margin-left: 1px;
+  margin-top: -43px;
+}
+.c4 {
+  margin-left: 17px;
+  margin-top: -15px;
+}
+.c5 {
+  margin-left: -31px;
+  margin-top: 13px;
+}
+.c6 {
+  margin-left: 1px;
+  margin-top: 13px;
+}
+.c7 {
+  margin-left: -63px;
+  margin-top: -43px;
+}
+.c8 {
+  margin-left: 33px;
+  margin-top: -43px;
+}
+.c9 {
+  margin-left: -15px;
+  margin-top: 41px;
+}
+.c10 {
+  margin-left: -63px;
+  margin-top: 13px;
+}
+.c11 {
+  margin-left: 33px;
+  margin-top: 13px;
+}
+.c12 {
+  margin-left: -15px;
+  margin-top: -71px;
+}
+.c13 {
+  margin-left: -47px;
+  margin-top: -71px;
+}
+.c14 {
+  margin-left: 17px;
+  margin-top: -71px;
+}
+.c15 {
+  margin-left: -47px;
+  margin-top: 41px;
+}
+.c16 {
+  margin-left: 17px;
+  margin-top: 41px;
+}
+.c17 {
+  margin-left: -79px;
+  margin-top: -15px;
+}
+.c18 {
+  margin-left: 49px;
+  margin-top: -15px;
+}
+.c19 {
+  margin-left: -63px;
+  margin-top: -99px;
+}
+.c20 {
+  margin-left: 33px;
+  margin-top: -99px;
+}
+.c21 {
+  margin-left: 1px;
+  margin-top: -99px;
+}
+.c22 {
+  margin-left: -31px;
+  margin-top: -99px;
+}
+.c23 {
+  margin-left: -63px;
+  margin-top: 69px;
+}
+.c24 {
+  margin-left: 33px;
+  margin-top: 69px;
+}
+.c25 {
+  margin-left: 1px;
+  margin-top: 69px;
+}
+.c26 {
+  margin-left: -31px;
+  margin-top: 69px;
+}
+.c28 {
+  margin-left: -95px;
+  margin-top: -43px;
+}
+.c29 {
+  margin-left: -95px;
+  margin-top: 13px;
+}
+.c30 {
+  margin-left: 49px;
+  margin-top: 41px;
+}
+.c31 {
+  margin-left: -79px;
+  margin-top: -71px;
+}
+.c32 {
+  margin-left: -111px;
+  margin-top: -15px;
+}
+.c33 {
+  margin-left: 65px;
+  margin-top: -43px;
+}
+.c34 {
+  margin-left: 65px;
+  margin-top: 13px;
+}
+.c35 {
+  margin-left: -79px;
+  margin-top: 41px;
+}
+.c36 {
+  margin-left: 49px;
+  margin-top: -71px;
+}
+.c37 {
+  margin-left: 81px;
+  margin-top: -15px;
+}
 
 .r1 {
   animation-name: pulse;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  animation-delay: .2s;
+  animation-delay: 0.2s;
   -webkit-animation-name: pulse;
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
-  -webkit-animation-delay: .2s;
+  -webkit-animation-delay: 0.2s;
 }
 
 .r2 {
   animation-name: pulse;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  animation-delay: .4s;
+  animation-delay: 0.4s;
   -webkit-animation-name: pulse;
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
-  -webkit-animation-delay: .4s;
+  -webkit-animation-delay: 0.4s;
 }
 
 .r3 {
   animation-name: pulse;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  animation-delay: .6s;
+  animation-delay: 0.6s;
   -webkit-animation-name: pulse;
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
-  -webkit-animation-delay: .6s;
+  -webkit-animation-delay: 0.6s;
 }
 
 .r1 > .hex-brick {
   animation-name: fade;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  animation-delay: .2s;
+  animation-delay: 0.2s;
   -webkit-animation-name: fade;
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
-  -webkit-animation-delay: .2s;
+  -webkit-animation-delay: 0.2s;
 }
 
 .r2 > .hex-brick {
   animation-name: fade;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  animation-delay: .4s;
+  animation-delay: 0.4s;
   -webkit-animation-name: fade;
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
-  -webkit-animation-delay: .4s;
+  -webkit-animation-delay: 0.4s;
 }
 
 .r3 > .hex-brick {
   animation-name: fade;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  animation-delay: .6s;
+  animation-delay: 0.6s;
   -webkit-animation-name: fade;
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
-  -webkit-animation-delay: .6s;
+  -webkit-animation-delay: 0.6s;
 }
 
 @keyframes pulse {
@@ -428,13 +536,13 @@ withDefaults(defineProps<Props>(), {
 
 @-webkit-keyframes fade {
   0% {
-    background: #ABF8FF;
+    background: #abf8ff;
   }
   50% {
-    background: #389CA6;
+    background: #389ca6;
   }
   100% {
-    background: #ABF8FF;
+    background: #abf8ff;
   }
 }
 </style>
